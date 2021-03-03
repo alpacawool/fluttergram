@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/stream_list.dart';
+import '../widgets/camera_button.dart';
 
 /* Requirements
     [ ] 1. Display a circular progress indicator when there are no previous posts to display in the LIST SCREEN.
@@ -9,6 +10,8 @@ import '../widgets/stream_list.dart';
     [ ] 4. Tapping on a post in the LIST SCREEN should cause a Detail Screen to appear. The Detail Screen's back 
         button should cause the LIST SCREEN to appear.
     [ ] 6. The LIST SCREEN should display a large button at the center bottom area of the screen.
+    [ ] 7. Tapping on the large button enables an employee to capture a photo, 
+           or select a photo from the device's photo gallery.
 */
 class ListScreen extends StatelessWidget {
 
@@ -18,7 +21,9 @@ class ListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Fluttergram')),
-      body: StreamList()
+      body: StreamList(),
+      floatingActionButton: CameraButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -6,6 +6,7 @@ import '../models/post_item.dart';
          photo, number of wasted items, and the latitude and 
          longitude that was recorded as part of the post.
 */
+
 class DetailScreen extends StatelessWidget {
   static const routeName = 'detail';
 
