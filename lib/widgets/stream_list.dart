@@ -36,7 +36,7 @@ class StreamList extends StatelessWidget {
             var post = snapshot.data.docs[index];
             return ListTile(
               title: Text((post['date']).toDate().toString()),
-              trailing: Text(post['amount'].toString()),
+              trailing: Text(post['quantity'].toString()),
               onTap: () {
                 postToDetail(context, snapshot, index);
               });
@@ -48,11 +48,11 @@ class StreamList extends StatelessWidget {
   void postToDetail(BuildContext context, AsyncSnapshot snapshot, int index) {
     // Place data in object before moving screen
     var post = snapshot.data.docs[index];
-    postItem.amount = post['amount'];
+    postItem.quantity = post['quantity'];
     postItem.date = post['date'].toDate();
-    postItem.image = post['image'];
-    postItem.latitude = post['location'].latitude;
-    postItem.longitude = post['location'].longitude;
+    postItem.imageURL = post['imageURL'];
+    postItem.latitude = post['latitude'];
+    postItem.longitude = post['longitude'];
     // Go to detail screen
     pushDetail(context, postItem);
   }
