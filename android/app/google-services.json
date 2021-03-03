@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42854068309",
+    "project_id": "fluttergram-49b94",
+    "storage_bucket": "fluttergram-49b94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42854068309:android:2b7e47985025a8aadae4dc",
+        "android_client_info": {
+          "package_name": "edu.oregonstate.boothpat.fluttergram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42854068309-ju2svge929fuqqib2g752lq1tmrsl1a0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBRIJdqUrNX1DV1arKfa7jtUyDup4p8dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42854068309-ju2svge929fuqqib2g752lq1tmrsl1a0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
