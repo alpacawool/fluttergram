@@ -21,6 +21,9 @@ class _NewPostFormState extends State<NewPostForm> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.image == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Form(key: formKey, child: formColumn());
   }
 
@@ -30,29 +33,50 @@ class _NewPostFormState extends State<NewPostForm> {
       children: [
         postImage(),
         amountNumberField(),
+        Spacer(flex: 1),
+        uploadButton(),
       ],
     );
   }
 
   Widget postImage() {
-    return Flexible(child: Image.file(widget.image));
+    return Flexible(
+      flex: 6,
+      child: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.fitWidth, 
+          child: Image.file(widget.image)
+        )
+      )
+    );
   }
 
   Widget amountNumberField() {
     return Flexible(
-      child:TextFormField(
-        decoration: InputDecoration(
-          labelText: 'Number of Items'
-        ),
-        keyboardType: TextInputType.number,
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Please enter number of items';
-          } else {
-            return null;
-          }
-        }
-      )
+        flex: 1,
+        child: TextFormField(
+            decoration: InputDecoration(labelText: 'Number of Items'),
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Please enter number of items';
+              } else {
+                return null;
+              }
+            }));
+  }
+
+  Widget uploadButton() {
+    return Flexible(
+        flex: 2,
+        child: TextButton(
+            child: SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.contain, 
+                  child: Icon(Icons.cloud_upload))
+            ),
+            onPressed: () {}
+          )
     );
   }
 }
