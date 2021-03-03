@@ -34,12 +34,17 @@ class StreamList extends StatelessWidget {
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
             var post = snapshot.data.docs[index];
-            return ListTile(
-              title: Text((post['date']).toDate().toString()),
-              trailing: Text(post['quantity'].toString()),
-              onTap: () {
-                postToDetail(context, snapshot, index);
-              });
+            return Semantics(
+              child: ListTile(
+                title: Text((post['date']).toDate().toString()),
+                trailing: Text(post['quantity'].toString()),
+                onTap: () {
+                  postToDetail(context, snapshot, index);
+              }),
+              label: 'Post item in list',
+              value: 'Post date and quantity of items',
+              onTapHint: 'View post detail'
+            );
           }))
       ],
     );

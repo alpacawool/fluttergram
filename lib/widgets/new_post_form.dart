@@ -53,49 +53,73 @@ class _NewPostFormState extends State<NewPostForm> {
 
   Widget postImage() {
     return Flexible(
-        flex: 6,
-        child: SizedBox.expand(
-            child: FittedBox(
-                fit: BoxFit.fitWidth, child: Image.file(widget.image))));
+      flex: 6,
+      child: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.fitWidth, 
+          child: Semantics(
+            child: Image.file(widget.image),
+            label: 'Picture selected for post',
+            image: true,
+            readOnly: true,
+          )
+        )
+      )
+    );
   }
 
   Widget amountNumberField() {
     return Flexible(
-        flex: 1,
-        child: TextFormField(
-            decoration: InputDecoration(labelText: 'Number of Items'),
-            keyboardType: TextInputType.number,
-            onSaved: (value) {
-              postItem.quantity = int.parse(value);
-            },
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter number of items';
-              } else {
+      flex: 1,
+      child: Semantics(
+        child:TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Number of Items'),
+          keyboardType: TextInputType.number,
+          onSaved: (value) {
+            postItem.quantity = int.parse(value);
+          },
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Please enter number of items';
+            } else {
                 return null;
-              }
-            }));
+            }
+           }),
+        label: 'Quantity Text Field',
+        value: 'Number of Items',
+        onTapHint: 'Enter a numeric integer of how many items',
+        textField: true,
+        multiline: false,    
+      ));
   }
 
   Widget uploadButton() {
     return Flexible(
-        flex: 2,
-        child: TextButton(
-            child: SizedBox.expand(
-                child: FittedBox(
-                    fit: BoxFit.contain, child: Icon(Icons.cloud_upload))),
-            onPressed: () {
-              if (formKey.currentState.validate()) {
-                formKey.currentState.save();
-                uploadImage();
-                uploadPost();
-                // Go back to previous screen
-                Navigator.of(context).pop();
+      flex: 2,
+      child: Semantics(
+        child:TextButton(
+          child: SizedBox.expand(
+              child: FittedBox(
+                  fit: BoxFit.contain, child: Icon(Icons.cloud_upload))),
+          onPressed: () {
+            if (formKey.currentState.validate()) {
+              formKey.currentState.save();
+              uploadPost();
+              // Go back to previous screen
+               Navigator.of(context).pop();
               }
-            }));
+            }
+          ),
+        label: 'Upload Post Button',
+        onTapHint: 'Upload image with quantity and geolocation to cloud',
+        button: true,
+        enabled: true,
+        )
+      );
   }
 
-  void uploadImage() async {
+  Future uploadImage() async {
     var imageName = '${DateTime.now().toString()}.jpg';
     Reference storageReference =
         FirebaseStorage.instance.ref().child(imageName);
@@ -109,11 +133,12 @@ class _NewPostFormState extends State<NewPostForm> {
     setState(() {});
   }
 
-  void uploadPost() {
+  void uploadPost() async{
+    await uploadImage();
     postItem.date = DateTime.now();
     postItem.latitude = locationData.latitude;
     postItem.longitude = locationData.longitude;
-  
+
     // Upload to firestore
     FirebaseFirestore.instance.collection('posts').add({
       'date': postItem.date,

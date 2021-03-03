@@ -22,7 +22,13 @@ class ListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Fluttergram')),
       body: StreamList(),
-      floatingActionButton: CameraButton(),
+      floatingActionButton: Semantics(
+        child: CameraButton(),
+        label: 'Camera button',
+        button: true,
+        enabled: true,
+        onTapHint: 'Select an image',
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }

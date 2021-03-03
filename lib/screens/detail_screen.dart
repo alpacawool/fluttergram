@@ -22,12 +22,12 @@ class DetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(post.date.toString()),
-            Text(post.imageURL),
+            Image(image: NetworkImage(post.imageURL)),
             Text(post.quantity.toString()),
             Text(post.latitude.toString()),
             Text(post.longitude.toString())
           ],
-          ),
+        ),
       )
     );
   }
