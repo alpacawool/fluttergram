@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../widgets/new_post_form.dart';
 
 /* Requirements
   [ ]  8. After taking a new photo or selecting a photo from the gallery, 
@@ -28,6 +29,7 @@ class NewPostScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(centerTitle: true, title: Text('New Post')),
-        body: Image.file(image));
+        body: NewPostForm(image)
+      );
   }
 }
