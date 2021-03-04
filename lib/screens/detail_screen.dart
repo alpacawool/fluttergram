@@ -54,18 +54,18 @@ class DetailScreen extends StatelessWidget {
 
   Widget postImage(String url) {
     return Flexible(
-        flex: 8,
-        child: SizedBox.expand(
-            child: FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Semantics(
-            child:Image.network(url),
-            label: 'Post Image',
-            value: url,
-            image: true,
-          )
-        )
-      )
+      flex: 8,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Semantics(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image.network(url, fit: BoxFit.fill)
+          ),       
+        label: 'Post Image',
+        value: url,
+        image: true,
+      ))
     );
   }
 }

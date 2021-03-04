@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
 import '../models/post_item.dart';
+import '../styles.dart';
 
 class NewPostForm extends StatefulWidget {
   final File image;
@@ -83,6 +84,7 @@ class _NewPostFormState extends State<NewPostForm> {
   Widget semanticAmountField() {
     return Semantics(
       child:TextFormField(
+        style: Styles.numberField,
         decoration: InputDecoration(
           labelText: 'Number of Items',
           border: OutlineInputBorder(
@@ -114,12 +116,7 @@ class _NewPostFormState extends State<NewPostForm> {
       flex: 3,
       child: Semantics(
         child:TextButton(
-          child: SizedBox.expand(
-            child: FittedBox(
-                fit: BoxFit.contain, 
-                child: Icon(Icons.cloud_upload)
-            )
-          ),
+          child: cloudBox(),
           onPressed: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
@@ -133,6 +130,22 @@ class _NewPostFormState extends State<NewPostForm> {
         onTapHint: 'Upload image with quantity and geolocation to cloud',
         button: true,
         enabled: true,
+      )
+    );
+  }
+
+  Widget cloudBox() {
+    return SizedBox.expand(
+      child: Container(
+        child: FittedBox(
+          fit: BoxFit.contain, 
+          child: Icon(Icons.cloud_upload, color: Colors.white)
+        ),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          border: Border.all(color: Colors.blue),
+          borderRadius: BorderRadius.all(Radius.circular(20))
+        )
       )
     );
   }
