@@ -13,14 +13,25 @@ import '../widgets/camera_button.dart';
     [ ] 7. Tapping on the large button enables an employee to capture a photo, 
            or select a photo from the device's photo gallery.
 */
-class ListScreen extends StatelessWidget {
-
+class ListScreen extends StatefulWidget {
   static const routeName = '/';
+
+  @override
+  ListScreenState createState() => ListScreenState();
+}
+
+class ListScreenState extends State<ListScreen> {
+  int totalCount = 0;
+
+  void updateCount(int newCount) {
+    totalCount = newCount;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Fluttergram')),
+      appBar: appBarTitle(),
       body: StreamList(),
       floatingActionButton: Semantics(
         child: CameraButton(),
@@ -31,5 +42,15 @@ class ListScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  Widget appBarTitle() {
+    if (totalCount == 0) {
+      return AppBar(centerTitle: true, title: Text('Fluttergram'));
+    } else {
+      return AppBar(
+        centerTitle: true, title: Text('Fluttergram - $totalCount')
+      );
+    }
   }
 }

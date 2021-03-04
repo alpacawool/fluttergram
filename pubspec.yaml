@@ -31,6 +31,8 @@ dependencies:
   image_picker: ^0.6.7+22
   # Location
   location: ^3.2.4
+  # Date Format
+  intl: ^0.15.6
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,6 +42,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # testing
+  test: ^1.15.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
