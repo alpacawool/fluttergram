@@ -41,11 +41,13 @@ class _NewPostFormState extends State<NewPostForm> {
 
   Widget formColumn() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
       children: [
         postImage(),
-        amountNumberField(),
         Spacer(flex: 1),
+        amountNumberField(),
         uploadButton(),
       ],
     );
@@ -53,7 +55,7 @@ class _NewPostFormState extends State<NewPostForm> {
 
   Widget postImage() {
     return Flexible(
-      flex: 6,
+      flex: 7,
       child: SizedBox.expand(
         child: FittedBox(
           fit: BoxFit.fitWidth, 
@@ -70,38 +72,54 @@ class _NewPostFormState extends State<NewPostForm> {
 
   Widget amountNumberField() {
     return Flexible(
-      flex: 1,
-      child: Semantics(
-        child:TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Number of Items'),
-          keyboardType: TextInputType.number,
-          onSaved: (value) {
-            postItem.quantity = int.parse(value);
-          },
-          validator: (value) {
-            if (value.isEmpty) {
-              return 'Please enter number of items';
-            } else {
-                return null;
-            }
-           }),
+      flex: 4,
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: semanticAmountField()
+      )
+    );
+  }
+
+  Widget semanticAmountField() {
+    return Semantics(
+      child:TextFormField(
+        decoration: InputDecoration(
+          labelText: 'Number of Items',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25.0),
+            borderSide: BorderSide()
+          )
+        ),
+        keyboardType: TextInputType.number,
+        onSaved: (value) {
+          postItem.quantity = int.parse(value);
+        },
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Please enter number of items';
+          } else {
+            return null;
+          }
+        }),
         label: 'Quantity Text Field',
         value: 'Number of Items',
         onTapHint: 'Enter a numeric integer of how many items',
         textField: true,
-        multiline: false,    
-      ));
+        multiline: false, 
+    );
   }
 
   Widget uploadButton() {
     return Flexible(
-      flex: 2,
+      flex: 3,
       child: Semantics(
         child:TextButton(
           child: SizedBox.expand(
-              child: FittedBox(
-                  fit: BoxFit.contain, child: Icon(Icons.cloud_upload))),
+            child: FittedBox(
+                fit: BoxFit.contain, 
+                child: Icon(Icons.cloud_upload)
+            )
+          ),
           onPressed: () {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
@@ -115,8 +133,8 @@ class _NewPostFormState extends State<NewPostForm> {
         onTapHint: 'Upload image with quantity and geolocation to cloud',
         button: true,
         enabled: true,
-        )
-      );
+      )
+    );
   }
 
   Future uploadImage() async {

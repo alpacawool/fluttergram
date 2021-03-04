@@ -4,6 +4,7 @@ import '../models/post_item.dart';
 import '../models/post_list.dart';
 import '../screens/detail_screen.dart';
 import '../screens/list_screen.dart';
+import '../styles.dart';
 
 class StreamList extends StatelessWidget {
   final postItem = PostItem();
@@ -12,47 +13,53 @@ class StreamList extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('posts')
-            .orderBy('date', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData &&
-              snapshot.data.docs != null &&
-              snapshot.data.docs.length > 0) {
-
-            updateTotalCount(context, snapshot);
-
-            return listColumn(context, snapshot);
-          } else {
+      stream: FirebaseFirestore.instance
+        .collection('posts')
+        .orderBy('date', descending: true)
+        .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData &&
+            snapshot.data.docs != null &&
+            snapshot.data.docs.length > 0) {
+          updateTotalCount(context, snapshot);
+          return listColumn(context, snapshot);
+        } else {
             return Center(child: CircularProgressIndicator());
-          }
-        });
+        }
+    });
   }
 
   Widget listColumn(BuildContext context, AsyncSnapshot snapshot) {
     return Column(
       children: [
         Expanded(
-            child: ListView.builder(
-                itemCount: snapshot.data.docs.length,
-                itemBuilder: (context, index) {
-                  var post = snapshot.data.docs[index];
-                  postItem.date = post['date'].toDate();
-                  postItem.quantity = post['quantity'];
-                  return Semantics(
-                      child: ListTile(
-                          title: Text(postItem.getLongDate()),
-                          trailing: Text(postItem.quantity.toString()),
-                          onTap: () {
-                            postToDetail(context, snapshot, index);
-                          }),
-                      label: 'Post item in list',
-                      value: 'Post date and quantity of items',
-                      onTapHint: 'View post detail');
-                }))
+          child: postListView(context, snapshot)
+        )
       ],
     );
+  }
+
+  Widget postListView(BuildContext context, AsyncSnapshot snapshot) {
+    return ListView.builder(
+      itemCount: snapshot.data.docs.length,
+      itemBuilder: (context, index) {
+      var post = snapshot.data.docs[index];
+      postItem.date = post['date'].toDate();
+      postItem.quantity = post['quantity'];
+      return Card(
+        child: Semantics(
+           child: ListTile(
+              title: Text(postItem.getLongDate(), style: Styles.tileDate),
+              trailing: Text(postItem.quantity.toString(), style: Styles.tileNumber),
+              onTap: () {
+                postToDetail(context, snapshot, index);
+              }),
+            label: 'Post item in list',
+            value: 'Post date and quantity of items',
+            onTapHint: 'View post detail'
+        )
+      );
+    });
   }
 
   void updateTotalCount(BuildContext context, AsyncSnapshot snapshot) {
@@ -62,8 +69,8 @@ class StreamList extends StatelessWidget {
       postList.addPost(
       PostItem(quantity: snapshot.data.docs[i]['quantity']));
     }
-    ListScreenState listState = context.findAncestorStateOfType<ListScreenState>();
-
+    ListScreenState listState
+       = context.findAncestorStateOfType<ListScreenState>();
     Future.delayed(Duration.zero, () async {
       listState.updateCount(postList.getTotalQuantity());
     });

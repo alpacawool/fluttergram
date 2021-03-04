@@ -12,6 +12,8 @@ void main() async{
     DeviceOrientation.landscapeRight,
     DeviceOrientation.portraitUp
   ]);
+  // Hide bottom navigation and top status bar 
+  SystemChrome.setEnabledSystemUIOverlays([]);
   // Needed for firebase storage
   await Firebase.initializeApp();
   runApp(App());
