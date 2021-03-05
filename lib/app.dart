@@ -5,6 +5,7 @@ import 'screens/new_post_screen.dart';
 
 class App extends StatelessWidget {
 
+  // Routing to each screen
   static final routes = {
     ListScreen.routeName: (context) => ListScreen(),
     DetailScreen.routeName: (context) => DetailScreen(),

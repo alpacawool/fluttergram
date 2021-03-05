@@ -1,5 +1,5 @@
 import 'post_item.dart';
-
+// The PostList model represents an entire collection of posts
 class PostList {
   List<PostItem> postList;
 

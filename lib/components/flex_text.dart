@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/* Reusable stylable flexible text widget that can be used 
+*  as child in any Column/Row widget */
+
 class FlexText extends StatelessWidget {
   final String text;
   final TextStyle style;

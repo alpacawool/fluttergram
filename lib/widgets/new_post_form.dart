@@ -6,6 +6,11 @@ import 'package:location/location.dart';
 import '../models/post_item.dart';
 import '../styles.dart';
 
+/* The new post form widget is displayed after an image from 
+ * gallery/camera is selected. It displays the image and allows
+ * the user to enter the amount of items in a text field then 
+ * upload the image to Firestore. Geolocation and date are recorded
+ * with upload. */
 class NewPostForm extends StatefulWidget {
   final File image;
 
@@ -92,6 +97,7 @@ class _NewPostFormState extends State<NewPostForm> {
             borderSide: BorderSide()
           )
         ),
+        // Forces the keyboard to be a numeric keyboard
         keyboardType: TextInputType.number,
         onSaved: (value) {
           postItem.quantity = int.parse(value);
@@ -150,6 +156,7 @@ class _NewPostFormState extends State<NewPostForm> {
     );
   }
 
+  // Uploads image to storage
   Future uploadImage() async {
     var imageName = '${DateTime.now().toString()}.jpg';
     Reference storageReference =
@@ -158,7 +165,7 @@ class _NewPostFormState extends State<NewPostForm> {
     await uploadTask;
     postItem.imageURL = await storageReference.getDownloadURL();
   }
-
+  // Uses location package to retrieve GPS coordinates
   void retrieveLocation() async {
     locationData = await locationService.getLocation();
     setState(() {});
@@ -170,7 +177,7 @@ class _NewPostFormState extends State<NewPostForm> {
     postItem.latitude = locationData.latitude;
     postItem.longitude = locationData.longitude;
 
-    // Upload to firestore
+    // Upload post attributes to firestore
     FirebaseFirestore.instance.collection('posts').add({
       'date': postItem.date,
       'quantity': postItem.quantity,

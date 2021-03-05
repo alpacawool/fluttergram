@@ -3,12 +3,8 @@ import '../models/post_item.dart';
 import '../components/flex_text.dart';
 import '../styles.dart';
 
-/*
-  5. [ ] The Detail Screen should display the post's date, 
-         photo, number of wasted items, and the latitude and 
-         longitude that was recorded as part of the post.
-*/
-
+/* The detail screen displays details of a single post
+*  including date, image, amount of items, and latitude/longitude */
 class DetailScreen extends StatelessWidget {
   static const routeName = 'detail';
 

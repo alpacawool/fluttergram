@@ -6,6 +6,9 @@ import '../screens/detail_screen.dart';
 import '../screens/list_screen.dart';
 import '../styles.dart';
 
+/* The StreamList class returns a StreamBuilder widget
+* that retrieves the posts from Firestore. Empty lists
+* display a circular progress indicator. */
 class StreamList extends StatelessWidget {
   final postItem = PostItem();
 
@@ -24,7 +27,7 @@ class StreamList extends StatelessWidget {
           updateTotalCount(context, snapshot);
           return listColumn(context, snapshot);
         } else {
-            return Center(child: CircularProgressIndicator());
+          return Center(child: CircularProgressIndicator());
         }
     });
   }
@@ -62,15 +65,20 @@ class StreamList extends StatelessWidget {
     });
   }
 
+  // Extra Credit: Update AppBar in ListScreen
   void updateTotalCount(BuildContext context, AsyncSnapshot snapshot) {
-    // Update quantity
+    // Retrieve the total quantities across all existing posts
     var postList = PostList();
     for (int i = 0; i < snapshot.data.docs.length; i++) {
       postList.addPost(
       PostItem(quantity: snapshot.data.docs[i]['quantity']));
     }
+    // Retrieve the ListScreen parent to update the AppBar in the Scaffold
     ListScreenState listState
        = context.findAncestorStateOfType<ListScreenState>();
+    /* Calling setState functions was not working well with StreamBuilder,
+    *  Worked around this issue by using a delayed Future.
+    *  https://stackoverflow.com/questions/47592301 */
     Future.delayed(Duration.zero, () async {
       listState.updateCount(postList.getTotalQuantity());
     });

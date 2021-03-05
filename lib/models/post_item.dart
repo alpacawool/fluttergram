@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 
+// The PostItem class represents a single post with certain attributes
 class PostItem {
   DateTime date;
   int quantity;

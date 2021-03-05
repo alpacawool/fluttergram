@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../screens/new_post_screen.dart';
 
+/* Floating Action Button on List Screen that opens the camera/gallery
+ * and after the file is chosen, navigates to create a post screen */
 class CameraButton extends StatelessWidget {
   final picker = ImagePicker();
 
