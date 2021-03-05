@@ -1,16 +1,16 @@
 # fluttergram
 
-A new Flutter project.
+Fluttergram is a Flutter application built with Dart for Android.
+ 
+## Key Features
+  - Dynamic list view that displays collection of posts retrieved from Firebase Firestore
+  - Detail view that displays information about post including image, date, and location.
+  - Upload post button that calls the phone's photo gallery and allows user to select a photo
+  - During upload, the selected photo is uploaded to the Firebase Storage and the geolocation is retrieved
+  - The list is updated with the new post after upload
 
-## Getting Started
+## Demonstration:
+<img src="/fluttergram.gif" width=417><br>
 
-This project is a starting point for a Flutter application.
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
