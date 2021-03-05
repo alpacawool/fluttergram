@@ -15,12 +15,12 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Fluttergram')),
       body: Center(
-        child: detailColumn(post)
+        child: detailColumn(context, post)
       )
     );
   }
 
-  Widget detailColumn(PostItem post) {
+  Widget detailColumn(BuildContext context, PostItem post) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,7 +30,7 @@ class DetailScreen extends StatelessWidget {
             flexValue: 2
           ),
           Spacer(flex:1),
-          postImage(post.imageURL),
+          postImage(context, post.imageURL),
           Spacer(flex:1),
           FlexText(
             text: '${post.quantity.toString()} items',
@@ -48,7 +48,7 @@ class DetailScreen extends StatelessWidget {
       );
   }
 
-  Widget postImage(String url) {
+  Widget postImage(BuildContext context, String url) {
     return Flexible(
       flex: 8,
       child: Padding(
@@ -56,12 +56,30 @@ class DetailScreen extends StatelessWidget {
         child: Semantics(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: Image.network(url, fit: BoxFit.fill)
+            child: imageNetwork(context, url)
           ),       
         label: 'Post Image',
         value: url,
         image: true,
       ))
     );
+  }
+
+  /* Noticed that there were delays between images appearing
+   * Decided to add a loading indicator while the image loads 
+   * This can be done using loadingBuilder. This is based on 
+   * https://stackoverflow.com/questions/53577962 */
+  Widget imageNetwork(BuildContext context, String url) {
+    return Image.network(url, fit: BoxFit.fill,
+      loadingBuilder: (BuildContext context, Widget image, 
+                      ImageChunkEvent loadStatus) {
+        if (loadStatus == null) {
+          return image;
+        } else {
+          return Center(
+            child: CircularProgressIndicator()
+          );
+        }
+      });
   }
 }
