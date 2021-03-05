@@ -16,7 +16,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fluttergram',
-      routes: routes
+      routes: routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
